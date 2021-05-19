@@ -1,0 +1,5 @@
+venv/
+.vscode
+__pycache__
+setup.sh
+api.postman_collection.json

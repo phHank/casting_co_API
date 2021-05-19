@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casting Company Logging In</title>
+</head>
+<script>
+    window.onload = function () {
+        // parse the fragment
+        let fragment = window.location.hash.substr(1).split('&')[0].split('=');
+        // check if the fragment includes the access token
+        if (fragment[0] === 'access_token') {
+            // add the access token to the jwt
+            const token = fragment[1];
+            fetch(`/login?jwt=${token}`, {
+            method:'POST',
+            body: JSON.stringify({
+                'jwt': {'Authorization': `Bearer ${token}`}
+            }),
+            headers: new Headers({
+                'Content-Type': 'json/application'
+            })
+        })
+        .then(res => res.json())
+        // redirect to 
+        .then(jsonRes => jsonRes.success === true ? window.location.href = "/logged-in" : " " && console.log('Error: JWT not retained.'))
+        .catch(err => console.log(err) && err)
+        }
+    }
+</script>
+</html>
